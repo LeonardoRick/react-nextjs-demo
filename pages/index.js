@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { MongoClient } from 'mongodb';
 import MeetupList from '../components/meetups/MeetupList';
-import { MONGO_URL } from '../constants/mongo';
 
 const Home = (props) => {
   return (
@@ -16,26 +15,30 @@ const Home = (props) => {
 };
 
 export async function getStaticProps() {
-  const client = await MongoClient.connect(MONGO_URL);
-  const db = client.db();
-  const collection = db.collection('meetups');
-  const result = await collection.find().toArray();
-  const meetups = result.map((item) => {
-    const id = item._id.toString();
-    delete item._id;
-    return {
-      ...item,
-      id,
-    };
-  });
-  client.close();
+  const url = process.env.MONGO_URL;
+  if (url) {
+    const client = await MongoClient.connect(process.env.MONGO_URL);
+    const db = client.db();
+    const collection = db.collection('meetups');
+    const result = await collection.find().toArray();
+    const meetups = result.map((item) => {
+      const id = item._id.toString();
+      delete item._id;
+      return {
+        ...item,
+        id,
+      };
+    });
+    client.close();
 
-  return {
-    props: {
-      meetups,
-    },
-    revalidate: 10,
-  };
+    return {
+      props: {
+        meetups,
+      },
+      revalidate: 10,
+    };
+  }
+  throw Error('MONG0_URL env variable is not defined!');
 }
 
 export default Home;
