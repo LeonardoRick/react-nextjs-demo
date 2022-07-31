@@ -7,5 +7,4 @@ Basic Next.js Porject that shows main features such as:
 - SSG
 - Head Component (metadata)
 - API routes
-
-![image](https://user-images.githubusercontent.com/17517057/182044148-e1456495-4d8a-4725-baf8-291fecfadd19.png)
+![image](https://user-images.githubusercontent.com/17517057/182044934-a125c335-ffb5-434d-8ef9-90cd6ac53329.png)
