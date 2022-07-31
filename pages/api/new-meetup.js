@@ -18,8 +18,10 @@ async function handler(req, res) {
       });
       client.close();
       res.status(201).json({ message: 'Meetup inserted' });
+      return;
     }
     res.status(404).json({ message: 'MONGO_URL not defined' });
+    return;
   }
 
   res.status(200).json({ message: 'not implemented' });
